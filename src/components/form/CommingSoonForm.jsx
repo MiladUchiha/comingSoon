@@ -8,8 +8,10 @@ export default function CommingSoonForm() {
     const [email, setEmail] = useState("");
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const [loading, setLoading] = useState(false);
+    const [done, setDone] = useState(false);
 
     const handleSubmit = (event) => {
+      setLoading(true)
         event.preventDefault();
         if (!emailRegex.test(email)) {
           // Invalid email format, show an error message or prevent form submission
@@ -17,10 +19,11 @@ export default function CommingSoonForm() {
           return false; // Prevent form submission
       }
       axios.post('/api/addEmail', {email}).then((res)=>{
-        setLoading(true)
+        
         toast.success('Vi kommer att meddela dig när vi är redo.')
         setEmail('')
         setLoading(false)
+        setDone(true)
       }
       ).catch((err)=>{
         toast.error('Något gick fel.')
@@ -31,15 +34,17 @@ export default function CommingSoonForm() {
       )}
   return (
     <>
+    {done ? <h2>Tack för att du registrerade dig!</h2> : (
+      <form onSubmit={handleSubmit}>
+      <input
+      value={email} onChange={(e) => setEmail(  e.target.value )} autoComplete='email'  type="email" placeholder="ihidago@ujufidnan.gov" />
+      {
+        loading ? <button>...</button> : <button>Meddela mig</button>
+      }
+      
+    </form>
+    )}
     
-    <form onSubmit={handleSubmit}>
-            <input
-            value={email} onChange={(e) => setEmail(  e.target.value )} autoComplete='email'  type="email" placeholder="ihidago@ujufidnan.gov" />
-            {
-              loading ? <button>....</button> : <button>Meddela mig</button>
-            }
-            
-          </form>
           </>
   )
 }

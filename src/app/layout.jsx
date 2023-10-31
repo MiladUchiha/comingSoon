@@ -1,31 +1,26 @@
-'use client'
-import AOS from "aos";
 import "aos/dist/aos.css";
 import {Toaster } from 'sonner'
-
-
-import { useEffect } from 'react'
+import Animation from '../context/Animation'
 import '../../public/main.scss'
+import { Roboto } from "next/font/google"
 
-
-
-
+const roboto = Roboto({
+  weight: ['300','400','500', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 
 export default function RootLayout({ children }) {
-  useEffect(() => {
-    AOS.init({
-      duration: 1200,
-      once: true,
-    });
-  }, []);
+  
   return (
-    <html  lang="en">
-      <head>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300;400;500;700&family=Rubik:wght@300;400;500&display=swap"/>
-      </head>
-      <body  ><div >
+    <html  lang="en" className={roboto.className} >
+      <body  >
+        <Animation>
+        <div >
         <Toaster richColors/> {children}</div>
+        </Animation>
       </body>
     </html>
   )
