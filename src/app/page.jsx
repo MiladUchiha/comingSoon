@@ -43,7 +43,7 @@ export default function Home() {
           <div className="row">
             <div className="col-lg-9 m-auto">
               <p>
-              Vi är under uppbyggnad. Kom tillbaka för en uppdatering snart. Hålla kontakten!
+              Dra nytta av detta exklusiva erbjudandet för att upptäcka hur Staffnow kan stärka din verksamhet. Anmäl dig här.
               </p>
             </div>
           </div>
